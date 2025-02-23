@@ -50,7 +50,7 @@ const MenuPages = () => {
         : opciones === "CONTACTO" 
         ? (<DetallePokemon />)
         : opciones === "LISTA" 
-        ? (<ListaComponentePokemon listadoPokemon={listadoPokemon} loadPokemon={loadData} setSelectOption={selectPokemonHandler} />)
+        ? (<ListaComponentePokemon listadoPokemon={listadoPokemon} loadPokemon={loadData} setSelectOption={selectPokemonHandler} menuOptionHandler={menuOptionHandler}/>)
         : null
     }
         </div>

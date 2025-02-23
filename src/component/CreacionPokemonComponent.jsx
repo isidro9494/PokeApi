@@ -9,7 +9,7 @@ const CreacionPokemonComponent = (props) => {
        url,
        altura,
        peso,
-       type,
+       tipo,
        loadPokemon,
        pokemon,
        setOptiones,
@@ -21,9 +21,11 @@ const CreacionPokemonComponent = (props) => {
         url:"",
         altura:"",
         peso:"",
-        type:""
+        tipo:""
     })
-
+const separaHandler = (tipo) =>{
+    return tipo.split(",").map(e=>e.trim())
+}
     const inputHandler = (nameProp, valueProp) => {
         const pokemonAux = {
             ...newPokemon,
@@ -40,7 +42,7 @@ const CreacionPokemonComponent = (props) => {
             url: "" ,
             altura:"",
             peso:"",
-            type:""
+            tipo: ""
         })
         loadPokemon()
         setOptiones("LISTA")
@@ -55,7 +57,7 @@ const CreacionPokemonComponent = (props) => {
             url: "",
             altura:"",
             peso:"",
-            type:""
+            tipo: separaHandler(newPokemon.tipo)
         })
         loadPokemon()
         setOptiones("DETALLES")
@@ -68,7 +70,7 @@ const CreacionPokemonComponent = (props) => {
             url: '' ,
             altura:"",
             peso:"",
-            type:""
+            tipo:""
         })
         setOptiones('DETALLES')
     }
@@ -82,7 +84,19 @@ const CreacionPokemonComponent = (props) => {
                 url: "",
                 altura:"",
                 peso:"",
-                type:"", 
+                tipo:"", 
+            })
+        }
+    },[pokemon])
+    useEffect(() => {
+        if(pokemon){
+            setNewPokemon({
+                id: pokemon.id,
+                nombre: pokemon.nombre,
+                url: pokemon.url,
+                altura: pokemon.altura,
+                peso: pokemon.peso,
+                tipo: pokemon.tipo.join(" ,"), 
             })
         }
     },[pokemon])
@@ -124,8 +138,8 @@ const CreacionPokemonComponent = (props) => {
                 <input type="text" value={newPokemon.peso} name='peso' onChange={(e) => {inputHandler(e.target.name, e.target.value)}}/>
             </div>
             <div>
-                <span>Type</span>
-                <input type="text" value={newPokemon.type} name='type' onChange={(e) => {inputHandler(e.target.name, e.target.value)}}/>
+                <span>Tipo </span>
+                <input type="text" value={newPokemon.tipo} name='tipo' onChange={(e) => {inputHandler(e.target.name, e.target.value)}}/>
             </div>
             <div>
             {

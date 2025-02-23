@@ -176,8 +176,8 @@ export const eliminarPokemon = (id)=>{
     listadoPokemon = listaNueva
 }
 
-export const modificarPokemon= (pokemon, pokemonModificado) =>{
-    const listaNueva = listadoPokemon.filter((e)=>e.id !== pokemon.id)
-    listaNueva.push(pokemonModificado)
-    listadoPokemon = listaNueva
-}
+export const modificarPokemon = (pokemon, pokemonModificado) => {
+    const listaNueva = listadoPokemon.map((e) => e.id === pokemon.id ? pokemonModificado : e);
+    listadoPokemon = listaNueva;
+    return listaNueva;
+};

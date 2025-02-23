@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import DestallesPokemonRealComponent from './DestallesPokemonRealComponent'
-import { eliminarPokemon } from '../services/serviceBack'
+import { eliminarPokemon,getListPokemon } from '../services/serviceBack'
 
 const ListaComponentePokemon = (props) => {
+  const [listadoPokemon, setListadoPokemon] = useState([]);
+  const [menuOption, setOption] = useState("LISTA");
     const [selectPokemon, setSelectPokemon] = useState(null);
     const {
    
-      listadoPokemon,
       pokemon,
       loadPokemon,
-      setPokemonSelected
+      setPokemonSelected,
+      setLista
     } = props
     const handleDetails = (pokemon) => {
         setSelectPokemon(pokemon);
@@ -18,11 +20,14 @@ const ListaComponentePokemon = (props) => {
     eliminarPokemon(id)
     loadPokemon()
   }
-
+  useEffect(() => {
+    const aux = getListPokemon();
+    setListadoPokemon(aux);
+}, []);
   return (
     <div>
       {selectPokemon ? (
-        <DestallesPokemonRealComponent pokemon={selectPokemon} />
+        <DestallesPokemonRealComponent pokemon={selectPokemon} loadPokemon={loadPokemon}   setOption={setOption} setLista={setListadoPokemon} />
       ) : (
         <div>
           <h2>Listado de Pokémon</h2>
